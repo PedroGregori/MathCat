@@ -1,0 +1,164 @@
+[gd_scene load_steps=15 format=3 uid="uid://dmv8v4vo7p3hg"]
+
+[ext_resource type="Script" path="res://scenes/game.gd" id="1_xnepn"]
+[ext_resource type="Script" path="res://scenes/percent.gd" id="5_6fgjr"]
+[ext_resource type="Script" path="res://scenes/time.gd" id="5_mqhmc"]
+[ext_resource type="Script" path="res://scenes/precisonsquare.gd" id="6_hdx81"]
+[ext_resource type="Script" path="res://scenes/line_edit.gd" id="98_2eu5t"]
+[ext_resource type="Script" path="res://scenes/label.gd" id="99_iwc1y"]
+[ext_resource type="Script" path="res://scenes/score_label.gd" id="101_mj53v"]
+
+[sub_resource type="Animation" id="Animation_cear1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_8ln4n"]
+resource_name = "fade_in"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.6),
+"transitions": PackedFloat32Array(0.378929, 1.10957, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_p4gat"]
+_data = {
+"RESET": SubResource("Animation_cear1"),
+"fade_in": SubResource("Animation_8ln4n")
+}
+
+[sub_resource type="Gradient" id="Gradient_six50"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.0490196, 0.0765027, 0.20098, 0.961749, 0.994536, 1)
+colors = PackedColorArray(1, 0, 0, 1, 1, 0, 0, 1, 0, 0.89124, 0.89124, 1, 0, 0.89124, 0.89124, 1, 0, 0.89124, 0.89124, 1, 0, 0.890196, 0, 1, 0, 0.890196, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_sco12"]
+gradient = SubResource("Gradient_six50")
+fill_from = Vector2(0.2, 0)
+fill_to = Vector2(0.6, 0)
+metadata/_snap_enabled = true
+
+[sub_resource type="Curve2D" id="Curve2D_ejdh1"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 782, 587, 0, 0, 0, 0, 348, 585)
+}
+point_count = 2
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_tncnw"]
+
+[node name="game" type="Node2D"]
+script = ExtResource("1_xnepn")
+
+[node name="LineEdit" type="LineEdit" parent="."]
+offset_left = 446.0
+offset_top = 370.0
+offset_right = 699.0
+offset_bottom = 428.0
+max_length = 3
+virtual_keyboard_type = 2
+script = ExtResource("98_2eu5t")
+
+[node name="Label" type="Label" parent="."]
+offset_left = 434.0
+offset_top = 194.0
+offset_right = 704.0
+offset_bottom = 360.0
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 121
+text = "1 + 1"
+script = ExtResource("99_iwc1y")
+
+[node name="feedback" type="Label" parent="."]
+visible = false
+offset_left = 483.0
+offset_top = 148.0
+offset_right = 655.0
+offset_bottom = 201.0
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 36
+text = "PERFEITO!"
+
+[node name="Fade_in" type="AnimationPlayer" parent="feedback"]
+libraries = {
+"": SubResource("AnimationLibrary_p4gat")
+}
+
+[node name="ScoreLabel" type="Label" parent="."]
+offset_left = 2.0
+offset_top = 8.0
+offset_right = 119.0
+offset_bottom = 52.0
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 31
+text = "Score: 0"
+script = ExtResource("101_mj53v")
+
+[node name="Time" type="Label" parent="."]
+offset_left = 830.0
+offset_top = 2.0
+offset_right = 1146.0
+offset_bottom = 46.0
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 31
+text = "Tempo restante: 0:00"
+script = ExtResource("5_mqhmc")
+
+[node name="Percent" type="Label" parent="."]
+offset_left = 2.0
+offset_top = 47.0
+offset_right = 119.0
+offset_bottom = 91.0
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 31
+text = "100%"
+script = ExtResource("5_6fgjr")
+
+[node name="Precision Bar" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(1.01885, 1)
+
+[node name="TextureRect" type="TextureRect" parent="Precision Bar"]
+layout_mode = 0
+offset_left = 345.0
+offset_top = 568.0
+offset_right = 409.0
+offset_bottom = 632.0
+scale = Vector2(6.82398, 0.64764)
+texture = SubResource("GradientTexture2D_sco12")
+
+[node name="Path2D" type="Path2D" parent="Precision Bar"]
+curve = SubResource("Curve2D_ejdh1")
+script = ExtResource("6_hdx81")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Precision Bar/Path2D"]
+position = Vector2(782, 587)
+rotation = -3.13698
+scale = Vector2(0.994942, 1.05554)
+
+[node name="TextureRect" type="TextureRect" parent="Precision Bar/Path2D/PathFollow2D"]
+offset_left = 0.0493826
+offset_top = -21.9999
+offset_right = 40.0494
+offset_bottom = 18.0001
+scale = Vector2(0.199105, 1)
+texture = SubResource("CanvasTexture_tncnw")
