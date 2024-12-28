@@ -18,6 +18,8 @@ func _ready() -> void:
 	# Conecta os sinais de texto alterado e texto submetido
 	connect("text_submitted", Callable(self, "_on_text_submitted"))
 	grab_focus()
+	if Game.freeze_game:
+		line_edit.editable = false
 
 func _something(text: String) -> void:
 	if text.is_empty() or text.is_valid_int() or (text == "-" and old_text.is_empty()): 

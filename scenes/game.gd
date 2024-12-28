@@ -11,30 +11,31 @@ var bad = 0
 var perfect_weight = 1
 var good_weight = 0.5
 var bad_weight = 0
-var remain_time = 3
+var remain_time = 5
 var time_decrement_speed = 1
-var freeze_game = true
+var freeze_game = false
 
 func update_percent():
-	var total = perfect + good + bad
-	if total > 0:
-		percent = (((perfect * perfect_weight) + (good * good_weight) + (bad * bad_weight)) / total) * 100
-	else:
-		percent = 100
+	if not freeze_game:
+		var total = perfect + good + bad
+		if total > 0:
+			percent = (((perfect * perfect_weight) + (good * good_weight) + (bad * bad_weight)) / total) * 100
+		else:
+			percent = 100
 
 func update_time(delta: float):
-	remain_time -= time_decrement_speed * delta
+	if not freeze_game:
+		remain_time -= time_decrement_speed * delta
 
 func game_over():
-	if remain_time <= 0:
-		if freeze_game:
-			get_tree().paused = true
-			print("Game over")
+	if not freeze_game:
+		if remain_time <= 0:
+			freeze_game = true
 	else:
 		pass
 
 func restart_game():
-	get_tree().reload_current_scene()
+	freeze_game = false
 	print("Jogo reiniciado!")
 	remain_time = 5
 	score = 0
