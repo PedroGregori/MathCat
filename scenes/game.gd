@@ -2,6 +2,7 @@ extends Node2D
 
 @onready var score_label: Label = $ScoreLabel
 @onready var time: Label = $Time
+@onready var path_follow_2d: PathFollow2D = $"Precision Bar/Path2D/PathFollow2D"
 
 var score = 0
 var percent = 100
@@ -11,7 +12,7 @@ var bad = 0
 var perfect_weight = 1
 var good_weight = 0.5
 var bad_weight = 0
-var remain_time = 5
+var remain_time = 60
 var time_decrement_speed = 1
 var freeze_game = false
 
@@ -36,10 +37,12 @@ func game_over():
 
 func restart_game():
 	freeze_game = false
-	print("Jogo reiniciado!")
 	remain_time = 5
 	score = 0
 	percent = 100
+	perfect = 0
+	good = 0
+	bad = 0
 	
 func _input(event: InputEvent) -> void:
 	if freeze_game:
@@ -48,3 +51,4 @@ func _input(event: InputEvent) -> void:
 
 func _process(delta: float) -> void:
 	game_over()
+	print(score)

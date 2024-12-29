@@ -18,8 +18,6 @@ func _ready() -> void:
 	# Conecta os sinais de texto alterado e texto submetido
 	connect("text_submitted", Callable(self, "_on_text_submitted"))
 	grab_focus()
-	if Game.freeze_game:
-		line_edit.editable = false
 
 func _something(text: String) -> void:
 	if text.is_empty() or text.is_valid_int() or (text == "-" and old_text.is_empty()): 
@@ -36,42 +34,32 @@ func _on_text_submitted(submitted_text):
 func check_answer(submitted_text: String) -> void:
 	var converted = label.get("converted")
 	if submitted_text == converted:
-		path_follow_2d.progress_ratio = 0
 		print("Correct! Generating new calculation...")
 		if path_follow_2d.progress_ratio >= 0 and path_follow_2d.progress_ratio <= 0.3932:
 			perfect = true
 			good = false
 			bad = false
-			if perfect == true:
-				Game.score += 15
-				feedback.visible = true
-				Game.perfect += 1
-				fade_in.play("fade_in")
-				change_text("PERFEITO!")
-				hide_feedback_after_delay(1)
+			Game.score += 15 * NormalModeGlobal.bonus
+			Game.perfect += 1
+			change_text("PERFEITO!")
+			show_feedback()
 		elif path_follow_2d.progress_ratio >= 0.4103 and path_follow_2d.progress_ratio <= 0.7659:
 			good = true
 			perfect = false
 			bad = false
-			if good == true:
-				Game.score += 10
-				Game.good += 1
-				feedback.visible = true
-				fade_in.play("fade_in")
-				change_text("BOM!")
-				hide_feedback_after_delay(1)
+			Game.score += 10 * NormalModeGlobal.bonus
+			Game.good += 1
+			change_text("BOM!")
+			show_feedback()
 		elif path_follow_2d.progress_ratio >= 0.7686 and path_follow_2d.progress_ratio <= 1:
-			Game.score += 5
-			Game.bad += 1
 			bad = true
 			perfect = false
 			good = false
-			if bad == true:
-				feedback.visible = true
-				fade_in.play("fade_in")
-				change_text("RUIM!")
-				hide_feedback_after_delay(1)
-			
+			Game.score += 5 * NormalModeGlobal.bonus
+			Game.bad += 1
+			change_text("RUIM!")
+			show_feedback()
+		path_follow_2d.progress_ratio = 0
 		label.call("_generate_calculation")
 	elif submitted_text == "":
 		pass
@@ -82,12 +70,10 @@ func check_answer(submitted_text: String) -> void:
 		bad = true
 		perfect = false
 		good = false
-		if bad == true:
+		if bad:
 			Game.bad += 1
-			feedback.visible = true
-			fade_in.play("fade_in")
 			change_text("ERROU!")
-			hide_feedback_after_delay(1)
+			show_feedback()
 		label.call("_generate_calculation")
 		print("Wrong, try again.")
 
@@ -96,5 +82,13 @@ func hide_feedback_after_delay(delay: float) -> void:
 	await get_tree().create_timer(delay).timeout
 	feedback.visible = false
 
+func show_feedback():
+	feedback.visible = true
+	fade_in.play("fade_in")
+
 func change_text(texto: String):
 	feedback.text = texto
+
+func _process(delta: float) -> void:
+	if Game.freeze_game:
+		line_edit.editable = false

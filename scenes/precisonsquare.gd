@@ -10,3 +10,5 @@ func _process(delta):
 		# Opcional: Reinicia o progresso ao final
 		if path_follow_2d.progress_ratio > 1:
 			path_follow_2d.progress_ratio = 1.0
+	if Game.freeze_game:
+		path_follow_2d.progress = 0

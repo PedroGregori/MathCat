@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 NormalModeGlobal="*res://normal_mode.gd"
 GameGlobal="*res://scenes/game.gd"
 Game="*res://scenes/game.gd"
+SceneManager="*res://mathcat.gd"
 
 [input]
 

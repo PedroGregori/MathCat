@@ -1,4 +1,4 @@
-[gd_scene load_steps=105 format=3 uid="uid://mfjaeeq07p1"]
+[gd_scene load_steps=106 format=3 uid="uid://mfjaeeq07p1"]
 
 [ext_resource type="Script" path="res://normal_mode.gd" id="1_1gkwd"]
 [ext_resource type="Texture2D" uid="uid://d30hkcjpimj5" path="res://main/menuAssets/background/background_menu_00000.png" id="2_rom2k"]
@@ -103,6 +103,7 @@
 [ext_resource type="Script" path="res://mult.gd" id="101_iqm51"]
 [ext_resource type="Script" path="res://label.gd" id="102_etice"]
 [ext_resource type="Script" path="res://back_button.gd" id="103_7tdqv"]
+[ext_resource type="Script" path="res://scenes/play_button.gd" id="104_tpgkf"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_akfv5"]
 animations = [{
@@ -437,6 +438,7 @@ grow_horizontal = 2
 theme_override_font_sizes/font_size = 116
 text = "-"
 script = ExtResource("100_es5wf")
+metadata/_edit_use_anchors_ = true
 
 [node name="Mult" type="Button" parent="."]
 anchors_preset = 5
@@ -471,7 +473,20 @@ grow_horizontal = 2
 text = "Voltar"
 script = ExtResource("103_7tdqv")
 
+[node name="PlayButton" type="Button" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 901.0
+offset_top = 590.0
+offset_right = 1125.0
+offset_bottom = 633.0
+grow_horizontal = 2
+text = "Jogar"
+script = ExtResource("104_tpgkf")
+
 [connection signal="pressed" from="Plus" to="Plus" method="_on_pressed"]
 [connection signal="pressed" from="Minus" to="Minus" method="_on_pressed"]
 [connection signal="pressed" from="Mult" to="Mult" method="_on_pressed"]
 [connection signal="pressed" from="BackButton" to="BackButton" method="_on_pressed"]
+[connection signal="pressed" from="PlayButton" to="PlayButton" method="_on_pressed"]
