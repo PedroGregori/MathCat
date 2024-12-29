@@ -11,7 +11,7 @@ func _process(delta: float) -> void:
 		plus.disabled = false
 		minus.disabled = false
 		mult.disabled = false
-		NormalModeGlobal.bonus = 0
+		NormalModeGlobal.bonus = 1
 		var remove_operations = ["+", "-", "*"]
 		for operation in remove_operations:
 			NormalModeGlobal.operations.erase(operation)

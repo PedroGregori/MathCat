@@ -67,6 +67,7 @@ func check_answer(submitted_text: String) -> void:
 		path_follow_2d.progress_ratio = 0
 		if Game.score >= 10:
 			Game.score -= 10
+		Game.error += 1
 		bad = true
 		perfect = false
 		good = false

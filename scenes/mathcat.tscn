@@ -654,14 +654,16 @@ position = Vector2(178, 316)
 scale = Vector2(0.572454, 0.606134)
 sprite_frames = SubResource("SpriteFrames_ppbe5")
 autoplay = "default"
-frame = 7
-frame_progress = 0.981256
+frame = 34
+frame_progress = 0.338713
 
 [node name="tittle" type="AnimatedSprite2D" parent="."]
 position = Vector2(597, 158)
 scale = Vector2(0.408333, 0.383333)
 sprite_frames = SubResource("SpriteFrames_2xdud")
 autoplay = "default"
+frame = 7
+frame_progress = 0.742427
 
 [node name="Play" type="Button" parent="."]
 anchors_preset = 5

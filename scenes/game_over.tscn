@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://cycrbmpgrdxwl"]
+
+[ext_resource type="Script" path="res://scenes/game_over.gd" id="1_3wpv8"]
+
+[node name="game_over" type="Node2D"]
+script = ExtResource("1_3wpv8")
+
+[node name="GameOver_Label" type="Label" parent="."]
+offset_left = 467.0
+offset_top = 300.0
+offset_right = 684.0
+offset_bottom = 355.0
+theme_override_font_sizes/font_size = 40
+text = "Game Over"

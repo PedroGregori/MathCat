@@ -1,7 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://dmv8v4vo7p3hg"]
+[gd_scene load_steps=16 format=3 uid="uid://dmv8v4vo7p3hg"]
 
 [ext_resource type="Script" path="res://scenes/game.gd" id="1_xnepn"]
 [ext_resource type="Script" path="res://scenes/percent.gd" id="5_6fgjr"]
+[ext_resource type="Script" path="res://scenes/bonus_label.gd" id="5_576ki"]
 [ext_resource type="Script" path="res://scenes/time.gd" id="5_mqhmc"]
 [ext_resource type="Script" path="res://scenes/precisonsquare.gd" id="6_hdx81"]
 [ext_resource type="Script" path="res://scenes/line_edit.gd" id="98_2eu5t"]
@@ -110,11 +111,20 @@ theme_override_font_sizes/font_size = 31
 text = "Score: 0"
 script = ExtResource("101_mj53v")
 
+[node name="BonusLabel" type="Label" parent="."]
+offset_left = 6.0
+offset_top = 98.0
+offset_right = 32.0
+offset_bottom = 128.0
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 21
+text = "0x"
+script = ExtResource("5_576ki")
+
 [node name="Time" type="Label" parent="."]
 offset_left = 830.0
-offset_top = 2.0
 offset_right = 1146.0
-offset_bottom = 46.0
+offset_bottom = 44.0
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 31
 text = "Tempo restante: 0:00"
